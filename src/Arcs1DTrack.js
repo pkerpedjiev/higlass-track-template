@@ -5,7 +5,7 @@ const Arcs1DTrack = (HGC, ...args) => {
     );
   }
 
-  class Arcs1DTrackClass extends HGC.tracks.TiledPixiTrack {
+  class Arcs1DTrackClass extends HGC.tracks.BarTrack {
     constructor(
       scene, trackConfig, dataConfig, handleTilesetInfoReceived, animate,
     ) {
@@ -18,11 +18,28 @@ const Arcs1DTrack = (HGC, ...args) => {
       );
     }
 
+    initTile(tile) {
+      console.log('initializing tile:', tile);
+    }
+
+    renderTile(tile) {
+      console.log('rendering tile', tile);
+    }
+
+    draw() {
+      for (const tile of this.visibleAndFetchedTiles()) {
+        this.renderTile(tile);
+      }
+    }
+
+    getMouseOverHtml() {
+
+    }
+
     zoomed(newXScale, newYScale) {
       this.xScale(newXScale);
       this.yScale(newYScale);
 
-      console.log('zoomed');
       this.refreshTiles();
       this.draw();
     }
